@@ -1,8 +1,9 @@
-import type { Metadata } from "next"
+// app/page.tsx
 import Navbar from "@/components/navbar"
 import SwapContainer from "@/components/swap-container"
+import PopupNotice from "@/components/popup-notice"
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "SolSwap - Swap tokens on Solana",
   description: "Swap tokens on Solana with the best rates",
 }
@@ -14,6 +15,7 @@ export default function HomePage() {
       <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
         <SwapContainer />
       </div>
+      <PopupNotice />
     </main>
   )
 }

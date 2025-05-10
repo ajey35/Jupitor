@@ -52,21 +52,9 @@ export default function Navbar() {
             <NavLink href="/" active>
               Spot
             </NavLink>
-            <NavLink href="/pro">Pro</NavLink>
-            <NavLink href="/perps">Perps</NavLink>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                More
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem asChild>
-                  <Link href="/stats">Stats</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/docs">Docs</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <NavLink  href="/">Pro</NavLink>
+            <NavLink href="/">Perps</NavLink>
+            
           </div>
         </div>
 

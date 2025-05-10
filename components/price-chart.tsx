@@ -30,7 +30,7 @@ export function PriceChart({
     const fetchPriceData = async () => {
       setIsLoading(true)
       try {
-        // In a real implementation, fetch from an API
+        // In a real implementation, fetch from an API   //// Implement the Real Data and Render here!
         // For demo, generate random price data
         const now = new Date()
         const data: PriceDataPoint[] = []
