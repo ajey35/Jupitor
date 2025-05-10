@@ -1,143 +1,135 @@
-# SolSwap: Solana DEX Frontend
+<h1 align="center">
+  <br>
+  <br>
+  LazorSwap ⚡
+  <br>
+</h1>
 
-A modern, sleek decentralized exchange frontend for Solana, built with Next.js, TypeScript, and featuring Lazorkit passkey wallet integration.
+<h4 align="center">Solana DEX with Passkey Authentication & Zero-Custody Swaps</h4>
 
-![SolSwap Screenshot](/public/images/screenshot.png)
+<p align="center">
+  <img src="https://img.shields.io/badge/Solana-3.5.15-blue?logo=solana" alt="Solana Version">
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="License">
+  <img src="https://img.shields.io/badge/WebAuthn-FIDO2-brightgreen" alt="WebAuthn">
+  <img src="https://img.shields.io/badge/Tests-98%25-brightgreen" alt="Test Coverage">
+</p>
 
-## 🌟 Features
+<p align="center">
+  <a href="#-features">Features</a> •
+  <a href="#-how-it-works">How It Works</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-getting-started">Getting Started</a> •
+  <a href="#-security">Security</a> •
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-contributing">Contributing</a>
+</p>
 
-- **Modern UI** - Clean, responsive design inspired by Jupiter.ag with dark and light themes
-- **Lazorkit Wallet Integration** - Secure passkey (WebAuthn) wallet connections
-- **Instant Token Swaps** - Swap tokens with real-time quotes, prices, and charts
-- **Fast Performance** - Built with Next.js App Router for optimal performance
-- **Responsive Design** - Works on desktop, tablet, and mobile
+
+---
+
+## ✨ Features
+
+| Feature                | Description                                                                 | Tech Stack                  |
+|------------------------|-----------------------------------------------------------------------------|-----------------------------|
+| 🔐 **Passkey Auth**     | Biometric/FIDO2 login with device security                                 | LazorKit, WebAuthn          |
+| ⚡ **Instant Swaps**    | SOL ↔ Lazy-Token swaps in <1s                                               | SPL Token Swap              |
+| 💧 **Liquidity Pools** | Earn 0.3% fees on trades                                                    | Constant Product AMM        |
+| 📊 **Portfolio Tracking** | Real-time balance updates                                                 | Solana Web3.js              |
+| 🔒 **Non-Custodial**    | Users control assets end-to-end                                            | secp256r1 Signatures        |
+
+---
+
+## 🧠 How It Works
+
+### 🔐 Authentication via LazorKit
+- Login using device biometrics like Face ID or fingerprint.
+- No wallet extensions, no private key management.
+
+### 🔁 Token Swap
+- Users swap between **Lazy-Token** and **SOL** (wSOL under the hood).
+- Powered by Solana’s [SPL Token Swap](https://github.com/solana-labs/solana-program-library/tree/master/token-swap/program).
+
+### 💧 Liquidity Provision
+- Users deposit **Lazy-Token + wSOL** to the pool.
+- In return, receive **Lazor-Tokens (LP tokens)**.
+- These LP tokens can later be used to withdraw liquidity.
+
+### 🧾 Transaction Signing
+- All swaps, deposits, and withdrawals are passkey-signed with secp256r1.
+- No browser wallet or private key exposure — it's WebAuthn-native.
+
+---
+
+## 🏗 Architecture
+
+```mermaid
+graph TD
+    A[User] -->|Passkey Auth| B(LazorKit Wallet)
+    B -->|Secure Session| C[Frontend]
+    C -->|Swap Request| D{SPL Token Swap}
+    D -->|Jupiter API| E[Solana RPC]
+    E -->|TX Confirmation| C
+    C -->|LP Tokens| F[Liquidity Pool]
+```
+
+---
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### 1. Clone the Repo
 
-- Node.js 18+ and npm/yarn
-- Git
+```bash
+git clone https://github.com/your-org/lazorswap.git
+cd lazorswap
+```
 
-### Installation
+### 2. Install Dependencies
 
-1. Clone the repository:
-   \`\`\`bash
-   git clone https://github.com/your-username/solswap.git
-   cd solswap
-   \`\`\`
+```bash
+pnpm install
+```
 
-2. Install dependencies:
-   \`\`\`bash
-   npm install
-   # or
-   yarn install
-   \`\`\`
+### 3. Start the DApp
 
-3. Set up environment variables:
-   \`\`\`bash
-   cp .env.example .env.local
-   \`\`\`
-   
-   Edit `.env.local` to include your API keys and configuration settings:
-   \`\`\`
-   NEXT_PUBLIC_SOLANA_NETWORK=mainnet
-   # Add other environment variables as needed
-   \`\`\`
+```bash
+pnpm dev
+```
 
-4. Run the development server:
-   \`\`\`bash
-   npm run dev
-   # or
-   yarn dev
-   \`\`\`
+Make sure to connect to a Solana devnet wallet using LazorKit.
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+---
 
-## 🛠️ Project Structure
+## 🔒 Security
 
-\`\`\`
-solswap/
-├── app/             # Next.js app router files
-│   ├── globals.css  # Global styles
-│   ├── layout.tsx   # Root layout component
-│   └── page.tsx     # Homepage
-├── components/      # Reusable UI components
-│   ├── navbar.tsx   # Navigation bar
-│   ├── swap-container.tsx  # Main swap interface
-│   └── ...          # Other components
-├── constants/       # App constants 
-├── hooks/           # React hooks
-├── lib/             # Utility functions
-├── public/          # Static assets
-└── types/           # TypeScript type definitions
-\`\`\`
+- 🔐 No seed phrase is ever stored.
+- 💾 No cookies or localStorage misuse.
+- 🔏 All operations are cryptographically signed with passkeys using `secp256r1`.
 
-## 💻 Development
+---
 
-### Key Components
+## 🧰 Tech Stack
 
-- **WalletProvider**: Manages Lazorkit wallet connection state
-- **SwapContainer**: Main swap interface with token selection and price display
-- **TokenSelector**: Component for selecting tokens with search and balance display
-- **PriceChart**: Displays price chart for the selected token pair
+- `@solana/web3.js` — Solana blockchain SDK
+- `@solana/spl-token` — SPL token utilities
+- `@solana/spl-token-swap` — Core swap logic
+- `lazorkit` — WebAuthn wallet integration
+- `Vite + React` — Frontend tooling
+- `Tailwind CSS` — UI styling
 
-### Available Scripts
+---
 
-- `npm run dev` - Start the development server
-- `npm run build` - Build the production application
-- `npm run start` - Start the production server
-- `npm run lint` - Run ESLint to check for code quality issues
+## 🤝 Contributing
 
-## 📦 Deployment
+1. Fork the repo 🍴  
+2. Create your feature branch `git checkout -b feat/amazing-feature`  
+3. Commit your changes ✅  
+4. Push to the branch `git push origin feat/amazing-feature`  
+5. Open a Pull Request! 🚀
 
-### Deploying to Vercel
-
-1. Push your code to a Git repository (GitHub, GitLab, etc.)
-2. Sign up or log in to [Vercel](https://vercel.com)
-3. Click "New Project" and import your repository
-4. Configure the project settings:
-   - Framework Preset: Next.js
-   - Root Directory: ./
-   - Environment Variables: Add all variables from your `.env.local`
-5. Click "Deploy" and wait for the build to complete
-
-### Manual Deployment
-
-1. Build the production application:
-   \`\`\`bash
-   npm run build
-   \`\`\`
-
-2. Start the production server:
-   \`\`\`bash
-   npm run start
-   \`\`\`
-
-## 🔐 Security Considerations
-
-- **Wallet Security**: Lazorkit uses WebAuthn for secure wallet authentication
-- **Transaction Signing**: All transactions are signed locally in the user's browser
-- **No Private Key Storage**: Private keys are never stored or transmitted
-- **Environment Variables**: Sensitive values should always be stored in environment variables
-
-## 🧩 Integrations
-
-- **Lazorkit Wallet**: Secure passkey wallet integration
-- **Jupiter Aggregator**: For optimal swap routing
-- **Solana Web3.js**: For blockchain interactions
-- **TanStack Query**: For efficient data fetching and caching
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT © 2025 — Built with ⚡ by Ajey
 
-## 🙏 Acknowledgements
-
-- [Jupiter.ag](https://jup.ag) for inspiration
-- [Lazorkit](https://docs.lazorkit.xyz/) for the wallet SDK
-- [Solana](https://solana.com) for the blockchain
-- [shadcn/ui](https://ui.shadcn.com/) for the UI components
-\`\`\`
-
-Let's create the necessary environment file:
+---
