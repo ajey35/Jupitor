@@ -7,7 +7,7 @@ import {
 } from "@solana/spl-token";
 
 // Constants
-export const SOLANA_RPC_URL = "https://api.devnet.solana.com";
+export const SOLANA_RPC_URL = "https://rpc.lazorkit.xyz";
 export const WSOL_MINT = new PublicKey("So11111111111111111111111111111111111111112");
 
 // Create a Solana connection
