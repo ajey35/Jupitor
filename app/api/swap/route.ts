@@ -4,7 +4,7 @@ import bs58 from "bs58"; // Optional, if you need base58 encoding
 import axios from "axios";
 
 // Constants
-const SOLANA_RPC_URL = "https://api.devnet.solana.com";
+const SOLANA_RPC_URL = "https://rpc.lazorkit.com";
 const JUPITER_QUOTE_API = "https://quote-api.jup.ag/v6/quote";
 const JUPITER_SWAP_API = "https://quote-api.jup.ag/v6/swap";
 
